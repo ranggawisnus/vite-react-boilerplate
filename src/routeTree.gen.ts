@@ -9,8 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TableShowcaseRouteImport } from './routes/table-showcase'
+import { Route as ListBakFilesRouteImport } from './routes/list-bak-files'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TableShowcaseRoute = TableShowcaseRouteImport.update({
+  id: '/table-showcase',
+  path: '/table-showcase',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ListBakFilesRoute = ListBakFilesRouteImport.update({
+  id: '/list-bak-files',
+  path: '/list-bak-files',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +31,50 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/list-bak-files': typeof ListBakFilesRoute
+  '/table-showcase': typeof TableShowcaseRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/list-bak-files': typeof ListBakFilesRoute
+  '/table-showcase': typeof TableShowcaseRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/list-bak-files': typeof ListBakFilesRoute
+  '/table-showcase': typeof TableShowcaseRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/list-bak-files' | '/table-showcase'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/list-bak-files' | '/table-showcase'
+  id: '__root__' | '/' | '/list-bak-files' | '/table-showcase'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ListBakFilesRoute: typeof ListBakFilesRoute
+  TableShowcaseRoute: typeof TableShowcaseRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/table-showcase': {
+      id: '/table-showcase'
+      path: '/table-showcase'
+      fullPath: '/table-showcase'
+      preLoaderRoute: typeof TableShowcaseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/list-bak-files': {
+      id: '/list-bak-files'
+      path: '/list-bak-files'
+      fullPath: '/list-bak-files'
+      preLoaderRoute: typeof ListBakFilesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +87,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ListBakFilesRoute: ListBakFilesRoute,
+  TableShowcaseRoute: TableShowcaseRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

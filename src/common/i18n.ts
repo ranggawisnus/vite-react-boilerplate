@@ -4,12 +4,14 @@ import Backend, { type HttpBackendOptions } from "i18next-http-backend";
 import { initReactI18next } from "react-i18next";
 import translationEN from "../assets/locales/en/translations.json";
 import translationES from "../assets/locales/es/translations.json";
+import translationID from "../assets/locales/id/translations.json";
 import { isProduction } from "./utils";
 
 export const defaultNS = "translations";
 export const resources = {
 	en: { translations: translationEN },
 	es: { translations: translationES },
+	id: { translations: translationID },
 } as const;
 
 const i18nOptions: InitOptions<HttpBackendOptions> = {
