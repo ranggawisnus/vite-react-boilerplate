@@ -1,5 +1,21 @@
 {
 	"home": {
 		"greeting": "Halo, Dunia!"
+	},
+	"layout": {
+		"back": "Kembali"
+	},
+	"items": {
+		"list": {
+			"title": "Daftar Barang",
+			"price": "Rp {{price, number}}",
+			"viewDetails": "Lihat Detail",
+			"noItems": "Tidak ada barang ditemukan"
+		},
+		"detail": {
+			"notFound": "Barang Tidak Ditemukan",
+			"itemNotFound": "Barang yang Anda cari tidak ada.",
+			"specifications": "Spesifikasi"
+		}
 	}
 }

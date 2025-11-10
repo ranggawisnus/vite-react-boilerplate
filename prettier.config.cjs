@@ -16,7 +16,7 @@ const prettierConfig = {
 	htmlWhitespaceSensitivity: "css",
 	endOfLine: "lf",
 	embeddedLanguageFormatting: "auto",
-	singleAttributePerLine: false
-}
+	singleAttributePerLine: false,
+};
 
-export default prettierConfig
+module.exports = prettierConfig;
