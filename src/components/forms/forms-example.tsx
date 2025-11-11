@@ -58,21 +58,16 @@ export function BugReportForm(): React.ReactElement {
 	});
 
 	return (
-		<div className="w-full flex flex-col min-h-screen relative z-10">
-			{/* Floating Orbs */}
-			<div className="floating-orb floating-orb-1" />
-			<div className="floating-orb floating-orb-2" />
-			<div className="floating-orb floating-orb-3" />
-
+		<div className="w-full flex flex-col min-h-screen relative z-10 bg-white">
 			{/* Main Content */}
 			<div className="flex-1 flex items-center justify-center px-4 py-12 sm:py-16 relative z-10">
 				<div className="w-full max-w-2xl mx-auto">
 					{/* Form Card */}
-					<div className="glass-effect rounded-2xl overflow-hidden">
+					<div className="bg-white border border-gray-200 shadow-md rounded-2xl overflow-hidden">
 						{/* Header */}
-						<div className="p-6 sm:p-8 border-b border-white/20">
+						<div className="p-6 sm:p-8 border-b border-gray-200">
 							<div className="flex items-center gap-4 mb-4">
-								<div className="glass-effect-light rounded-xl p-3">
+								<div className="bg-gray-50 border border-gray-200 rounded-xl p-3">
 									<Bug className="h-6 w-6 text-foreground" />
 								</div>
 								<div>
@@ -111,7 +106,7 @@ export function BugReportForm(): React.ReactElement {
 													<Input
 														aria-invalid={isInvalid}
 														autoComplete="off"
-														className="glass-effect-light bg-white/30 backdrop-blur-md border-white/30 rounded-lg focus-visible:ring-2 focus-visible:ring-white/50"
+														className="bg-white border border-gray-300 rounded-lg focus-visible:ring-2 focus-visible:ring-gray-400"
 														id={field.name}
 														name={field.name}
 														placeholder="Login button not working on mobile"
@@ -141,7 +136,7 @@ export function BugReportForm(): React.ReactElement {
 													<InputGroup>
 														<InputGroupTextarea
 															aria-invalid={isInvalid}
-															className="min-h-24 resize-none glass-effect-light bg-white/30 backdrop-blur-md border-white/30 rounded-lg focus-visible:ring-2 focus-visible:ring-white/50"
+															className="min-h-24 resize-none bg-white border border-gray-300 rounded-lg focus-visible:ring-2 focus-visible:ring-gray-400"
 															id={field.name}
 															name={field.name}
 															placeholder="I'm having an issue with the login button on mobile."
@@ -175,10 +170,10 @@ export function BugReportForm(): React.ReactElement {
 						</div>
 
 						{/* Footer */}
-						<div className="p-6 sm:p-8 border-t border-white/20">
+						<div className="p-6 sm:p-8 border-t border-gray-200">
 							<Field orientation="horizontal">
 								<Button
-									className="glass-effect-light hover:glass-effect rounded-xl"
+									className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-xl"
 									type="button"
 									variant="outline"
 									onClick={() => {
@@ -189,7 +184,7 @@ export function BugReportForm(): React.ReactElement {
 									Reset
 								</Button>
 								<Button
-									className="glass-effect hover:glass-effect-strong rounded-xl"
+									className="bg-white hover:bg-gray-50 border border-gray-300 shadow-md rounded-xl"
 									form="bug-report-form"
 									type="submit"
 								>

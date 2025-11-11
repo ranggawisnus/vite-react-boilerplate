@@ -58,12 +58,7 @@ export const ItemsList: React.FC = () => {
 
 	if (isLoading) {
 		return (
-			<div className="w-full flex flex-col min-h-screen relative z-10">
-				{/* Floating Orbs */}
-				<div className="floating-orb floating-orb-1" />
-				<div className="floating-orb floating-orb-2" />
-				<div className="floating-orb floating-orb-3" />
-
+			<div className="w-full flex flex-col min-h-screen relative z-10 bg-white">
 				<div className="w-full max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
 					{/* Header */}
 					<div className="mb-8">
@@ -76,9 +71,9 @@ export const ItemsList: React.FC = () => {
 					</div>
 
 					{/* Search and Filter Skeleton */}
-					<div className="glass-effect rounded-xl p-4 sm:p-6 mb-6 space-y-4">
-						<div className="h-10 bg-white/30 rounded-lg animate-pulse" />
-						<div className="h-10 bg-white/30 rounded-lg animate-pulse w-32" />
+					<div className="bg-white border border-gray-200 shadow-md rounded-xl p-4 sm:p-6 mb-6 space-y-4">
+						<div className="h-10 bg-gray-100 rounded-lg animate-pulse" />
+						<div className="h-10 bg-gray-100 rounded-lg animate-pulse w-32" />
 					</div>
 
 					{/* Items Grid Skeleton */}
@@ -86,16 +81,16 @@ export const ItemsList: React.FC = () => {
 						{Array.from({ length: 6 }).map((_, index) => (
 							<div
 								key={index}
-								className="glass-effect rounded-xl overflow-hidden animate-pulse"
+								className="bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden animate-pulse"
 							>
-								<div className="w-full h-40 sm:h-48 bg-white/20" />
+								<div className="w-full h-40 sm:h-48 bg-gray-100" />
 								<div className="p-4 sm:p-6 space-y-3">
-									<div className="h-5 bg-white/20 rounded w-3/4" />
-									<div className="h-4 bg-white/20 rounded w-full" />
-									<div className="h-4 bg-white/20 rounded w-2/3" />
+									<div className="h-5 bg-gray-100 rounded w-3/4" />
+									<div className="h-4 bg-gray-100 rounded w-full" />
+									<div className="h-4 bg-gray-100 rounded w-2/3" />
 									<div className="flex items-center justify-between mt-4">
-										<div className="h-6 w-20 bg-white/20 rounded-full" />
-										<div className="h-6 w-24 bg-white/20 rounded" />
+										<div className="h-6 w-20 bg-gray-100 rounded-full" />
+										<div className="h-6 w-24 bg-gray-100 rounded" />
 									</div>
 								</div>
 							</div>
@@ -108,14 +103,9 @@ export const ItemsList: React.FC = () => {
 
 	if (isError) {
 		return (
-			<div className="w-full flex flex-col min-h-screen relative z-10">
-				{/* Floating Orbs */}
-				<div className="floating-orb floating-orb-1" />
-				<div className="floating-orb floating-orb-2" />
-				<div className="floating-orb floating-orb-3" />
-
+			<div className="w-full flex flex-col min-h-screen relative z-10 bg-white">
 				<div className="w-full max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
-					<div className="glass-effect rounded-xl p-8 sm:p-12 text-center">
+					<div className="bg-white border border-gray-200 shadow-md rounded-xl p-8 sm:p-12 text-center">
 						<p className="text-lg font-semibold text-destructive mb-2">
 							Error loading items
 						</p>
@@ -131,12 +121,7 @@ export const ItemsList: React.FC = () => {
 	const items = filteredItems;
 
 	return (
-		<div className="w-full flex flex-col min-h-screen relative z-10">
-			{/* Floating Orbs */}
-			<div className="floating-orb floating-orb-1" />
-			<div className="floating-orb floating-orb-2" />
-			<div className="floating-orb floating-orb-3" />
-
+		<div className="w-full flex flex-col min-h-screen relative z-10 bg-white">
 			<div className="w-full max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
 				{/* Header */}
 				<div className="mb-6 sm:mb-8">
@@ -149,12 +134,12 @@ export const ItemsList: React.FC = () => {
 				</div>
 
 				{/* Search and Filter */}
-				<div className="glass-effect rounded-xl p-4 sm:p-6 mb-6 space-y-4 sm:space-y-0 sm:flex sm:items-center sm:gap-4">
+				<div className="bg-white border border-gray-200 shadow-md rounded-xl p-4 sm:p-6 mb-6 space-y-4 sm:space-y-0 sm:flex sm:items-center sm:gap-4">
 					{/* Search Input */}
 					<div className="relative flex-1">
 						<Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
 						<Input
-							className="pl-9 h-10 sm:h-11 bg-white/50 backdrop-blur-md border-white/30 rounded-lg focus-visible:ring-2 focus-visible:ring-white/50"
+							className="pl-9 h-10 sm:h-11 bg-white border border-gray-300 rounded-lg focus-visible:ring-2 focus-visible:ring-gray-400"
 							placeholder="Search items..."
 							type="text"
 							value={searchQuery}
@@ -189,20 +174,20 @@ export const ItemsList: React.FC = () => {
 						{items.map((item) => (
 							<div
 								key={item.id}
-								className="glass-effect rounded-xl overflow-hidden cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg group"
+								className="bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg group"
 								onClick={() => {
 									handleItemClick(item.id.toString());
 								}}
 							>
 								{/* Item Image */}
-								<div className="w-full h-40 sm:h-48 overflow-hidden bg-white/20 relative">
+								<div className="w-full h-40 sm:h-48 overflow-hidden bg-gray-100 relative">
 									<Image
 										alt={item.title}
 										className="w-full h-full object-cover transition-transform group-hover:scale-110"
 										src={item.image}
 									/>
 									{/* Small Icon Overlay */}
-									<div className="absolute top-3 right-3 glass-effect-light rounded-lg p-2">
+									<div className="absolute top-3 right-3 bg-gray-50 border border-gray-200 rounded-lg p-2">
 										<Package className="h-4 w-4 text-foreground" />
 									</div>
 								</div>
@@ -220,8 +205,8 @@ export const ItemsList: React.FC = () => {
 									</p>
 
 									{/* Metadata */}
-									<div className="flex items-center justify-between pt-4 border-t border-white/20">
-										<span className="text-xs sm:text-sm px-3 py-1 glass-effect-light rounded-full text-foreground font-medium">
+									<div className="flex items-center justify-between pt-4 border-t border-gray-200">
+										<span className="text-xs sm:text-sm px-3 py-1 bg-gray-50 border border-gray-200 rounded-full text-foreground font-medium">
 											{item.category}
 										</span>
 										<span className="text-base sm:text-lg font-bold text-foreground">
@@ -233,7 +218,7 @@ export const ItemsList: React.FC = () => {
 						))}
 					</div>
 				) : (
-					<div className="glass-effect rounded-xl p-12 text-center">
+					<div className="bg-white border border-gray-200 shadow-md rounded-xl p-12 text-center">
 						<Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
 						<p className="text-base font-medium text-foreground mb-2">
 							No items found

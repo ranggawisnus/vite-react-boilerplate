@@ -161,18 +161,13 @@ export const ListBAKFiles = (): FunctionComponent => {
 
 	return (
 		<>
-			<div className="w-full flex flex-col min-h-screen relative z-10">
-				{/* Floating Orbs */}
-				<div className="floating-orb floating-orb-1" />
-				<div className="floating-orb floating-orb-2" />
-				<div className="floating-orb floating-orb-3" />
-
+			<div className="w-full flex flex-col min-h-screen relative z-10 bg-white">
 				<div className="w-full max-w-4xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
 					{/* Header */}
-					<div className="glass-effect rounded-xl p-6 sm:p-8 mb-6">
+					<div className="bg-white border border-gray-200 shadow-md rounded-xl p-6 sm:p-8 mb-6">
 						<div className="flex items-center justify-between flex-col sm:flex-row gap-4">
 							<div className="flex items-center gap-3">
-								<div className="glass-effect-light rounded-lg p-2.5">
+								<div className="bg-gray-50 border border-gray-200 rounded-lg p-2.5">
 									<FileText className="h-6 w-6 text-foreground" />
 								</div>
 								<div>
@@ -185,7 +180,7 @@ export const ListBAKFiles = (): FunctionComponent => {
 								</div>
 							</div>
 							<Button
-								className="glass-effect-light hover:glass-effect rounded-xl"
+								className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-xl"
 								disabled={isLoading || isRefetching}
 								type="button"
 								onClick={() => {
@@ -202,17 +197,17 @@ export const ListBAKFiles = (): FunctionComponent => {
 
 					{/* Loading State */}
 					{isLoading && (
-						<div className="glass-effect rounded-xl p-8 text-center">
+						<div className="bg-white border border-gray-200 shadow-md rounded-xl p-8 text-center">
 							<div className="animate-pulse space-y-3">
-								<div className="h-4 bg-white/20 rounded w-3/4 mx-auto" />
-								<div className="h-4 bg-white/20 rounded w-1/2 mx-auto" />
+								<div className="h-4 bg-gray-100 rounded w-3/4 mx-auto" />
+								<div className="h-4 bg-gray-100 rounded w-1/2 mx-auto" />
 							</div>
 						</div>
 					)}
 
 					{/* Error State */}
 					{isError && (
-						<div className="glass-effect rounded-xl p-8 text-center">
+						<div className="bg-white border border-gray-200 shadow-md rounded-xl p-8 text-center">
 							<p className="text-lg font-semibold text-destructive mb-2">
 								Failed to load
 							</p>
@@ -224,7 +219,7 @@ export const ListBAKFiles = (): FunctionComponent => {
 
 					{/* Files List */}
 					{!isLoading && !isError && (
-						<div className="glass-effect rounded-xl overflow-hidden">
+						<div className="bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden">
 							{(data ?? []).length === 0 ? (
 								<div className="p-12 text-center">
 									<FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
@@ -236,15 +231,15 @@ export const ListBAKFiles = (): FunctionComponent => {
 									</p>
 								</div>
 							) : (
-								<ul className="divide-y divide-white/20">
+								<ul className="divide-y divide-gray-200">
 									{(data ?? []).map((item) => (
 										<li
 											key={item.bak}
-											className="p-4 sm:p-6 hover:bg-white/10 transition-colors"
+											className="p-4 sm:p-6 hover:bg-gray-50 transition-colors"
 										>
 											<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 												<div className="flex items-center gap-3 flex-1 min-w-0">
-													<div className="glass-effect-light rounded-lg p-2 flex-shrink-0">
+													<div className="bg-gray-50 border border-gray-200 rounded-lg p-2 flex-shrink-0">
 														<FileText className="h-4 w-4 text-foreground" />
 													</div>
 													<div className="flex-1 min-w-0">
@@ -258,12 +253,12 @@ export const ListBAKFiles = (): FunctionComponent => {
 														)}
 													</div>
 													{item.isZipExist ? (
-														<span className="glass-effect-light rounded-full px-3 py-1 flex items-center gap-1.5 text-xs sm:text-sm font-medium text-foreground flex-shrink-0">
+														<span className="bg-gray-50 border border-gray-200 rounded-full px-3 py-1 flex items-center gap-1.5 text-xs sm:text-sm font-medium text-foreground flex-shrink-0">
 															<CheckCircle2 className="h-3.5 w-3.5" />
 															Generated
 														</span>
 													) : (
-														<span className="glass-effect-light rounded-full px-3 py-1 flex items-center gap-1.5 text-xs sm:text-sm font-medium text-muted-foreground flex-shrink-0">
+														<span className="bg-gray-50 border border-gray-200 rounded-full px-3 py-1 flex items-center gap-1.5 text-xs sm:text-sm font-medium text-muted-foreground flex-shrink-0">
 															<Circle className="h-3.5 w-3.5" />
 															Not generated
 														</span>
@@ -276,7 +271,7 @@ export const ListBAKFiles = (): FunctionComponent => {
 														</span>
 													)}
 													<Button
-														className="glass-effect-light hover:glass-effect rounded-xl"
+														className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-xl"
 														disabled={downloadingName === item.bak}
 														type="button"
 														onClick={() => {
@@ -303,17 +298,17 @@ export const ListBAKFiles = (): FunctionComponent => {
 			{activeFile && (
 				<div
 					aria-modal="true"
-					className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
+					className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
 					role="dialog"
 				>
-					<div className="glass-effect-strong rounded-2xl p-6 sm:p-8 w-full max-w-md mx-4 shadow-2xl">
+					<div className="bg-white border border-gray-300 shadow-lg rounded-2xl p-6 sm:p-8 w-full max-w-md mx-4">
 						<h2 className="text-xl font-semibold text-foreground mb-2">
 							Processing file
 						</h2>
 						<p className="text-sm text-muted-foreground mb-6 break-all">
 							{activeFile}
 						</p>
-						<div className="w-full h-3 rounded-full bg-white/20 overflow-hidden mb-2">
+						<div className="w-full h-3 rounded-full bg-gray-200 overflow-hidden mb-2">
 							<div
 								className="h-3 bg-blue-500 transition-all duration-300 rounded-full"
 								style={{
@@ -329,7 +324,7 @@ export const ListBAKFiles = (): FunctionComponent => {
 								{activeMessage}
 							</span>
 						</div>
-						<div className="glass-effect-light rounded-xl p-4 text-sm text-foreground">
+						<div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-foreground">
 							<p className="font-medium mb-1">Please wait...</p>
 							<p className="text-xs text-muted-foreground">
 								Do not close or refresh the page while processing.

@@ -26,31 +26,26 @@ export const ItemDetail: React.FC = () => {
 
 	if (isLoading) {
 		return (
-			<div className="w-full flex flex-col min-h-screen relative z-10">
-				{/* Floating Orbs */}
-				<div className="floating-orb floating-orb-1" />
-				<div className="floating-orb floating-orb-2" />
-				<div className="floating-orb floating-orb-3" />
-
+			<div className="w-full flex flex-col min-h-screen relative z-10 bg-white">
 				<div className="w-full max-w-5xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
-					<div className="glass-effect rounded-xl overflow-hidden animate-pulse">
-						<div className="w-full h-64 sm:h-80 lg:h-96 bg-white/20" />
+					<div className="bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden animate-pulse">
+						<div className="w-full h-64 sm:h-80 lg:h-96 bg-gray-100" />
 						<div className="p-6 sm:p-8 lg:p-10 space-y-6">
-							<div className="h-6 w-32 bg-white/20 rounded-full" />
-							<div className="h-8 sm:h-10 bg-white/20 rounded w-3/4" />
-							<div className="h-6 bg-white/20 rounded w-full" />
-							<div className="h-6 bg-white/20 rounded w-2/3" />
-							<div className="h-10 w-40 bg-white/20 rounded" />
-							<div className="border-t border-white/20 pt-6">
-								<div className="h-6 w-48 bg-white/20 rounded mb-4" />
+							<div className="h-6 w-32 bg-gray-100 rounded-full" />
+							<div className="h-8 sm:h-10 bg-gray-100 rounded w-3/4" />
+							<div className="h-6 bg-gray-100 rounded w-full" />
+							<div className="h-6 bg-gray-100 rounded w-2/3" />
+							<div className="h-10 w-40 bg-gray-100 rounded" />
+							<div className="border-t border-gray-200 pt-6">
+								<div className="h-6 w-48 bg-gray-100 rounded mb-4" />
 								<div className="grid gap-4 sm:grid-cols-2">
 									{Array.from({ length: 4 }).map((_, index) => (
 										<div
 											key={index}
-											className="glass-effect-light rounded-lg p-4 space-y-2"
+											className="bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-2"
 										>
-											<div className="h-4 bg-white/20 rounded w-24" />
-											<div className="h-5 bg-white/20 rounded w-32" />
+											<div className="h-4 bg-gray-100 rounded w-24" />
+											<div className="h-5 bg-gray-100 rounded w-32" />
 										</div>
 									))}
 								</div>
@@ -64,14 +59,9 @@ export const ItemDetail: React.FC = () => {
 
 	if (isError || !data?.item) {
 		return (
-			<div className="w-full flex flex-col min-h-screen relative z-10">
-				{/* Floating Orbs */}
-				<div className="floating-orb floating-orb-1" />
-				<div className="floating-orb floating-orb-2" />
-				<div className="floating-orb floating-orb-3" />
-
+			<div className="w-full flex flex-col min-h-screen relative z-10 bg-white">
 				<div className="w-full max-w-5xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
-					<div className="glass-effect rounded-xl p-12 text-center">
+					<div className="bg-white border border-gray-200 shadow-md rounded-xl p-12 text-center">
 						<Package className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
 						<h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
 							{t("items.detail.notFound")}
@@ -91,24 +81,19 @@ export const ItemDetail: React.FC = () => {
 	const item = data.item;
 
 	return (
-		<div className="w-full flex flex-col min-h-screen relative z-10">
-			{/* Floating Orbs */}
-			<div className="floating-orb floating-orb-1" />
-			<div className="floating-orb floating-orb-2" />
-			<div className="floating-orb floating-orb-3" />
-
+		<div className="w-full flex flex-col min-h-screen relative z-10 bg-white">
 			<div className="w-full max-w-5xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
 				{/* Main Content Card */}
-				<div className="glass-effect rounded-xl overflow-hidden">
+				<div className="bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden">
 					{/* Hero Image */}
-					<div className="w-full h-64 sm:h-80 lg:h-96 overflow-hidden bg-white/20 relative">
+					<div className="w-full h-64 sm:h-80 lg:h-96 overflow-hidden bg-gray-100 relative">
 						<Image
 							alt={item.title}
 							className="w-full h-full object-cover"
 							src={item.image}
 						/>
 						{/* Category Badge Overlay */}
-						<div className="absolute top-4 left-4 glass-effect-light rounded-lg px-3 py-1.5 flex items-center gap-2">
+						<div className="absolute top-4 left-4 bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 flex items-center gap-2">
 							<Tag className="h-3.5 w-3.5 text-foreground" />
 							<span className="text-xs sm:text-sm font-medium text-foreground">
 								{item.category}
@@ -129,8 +114,8 @@ export const ItemDetail: React.FC = () => {
 						</p>
 
 						{/* Price */}
-						<div className="glass-effect-light rounded-xl p-4 sm:p-6 mb-6 sm:mb-8 flex items-center gap-3">
-							<div className="glass-effect rounded-lg p-2.5">
+						<div className="bg-gray-50 border border-gray-200 rounded-xl p-4 sm:p-6 mb-6 sm:mb-8 flex items-center gap-3">
+							<div className="bg-white border border-gray-200 rounded-lg p-2.5">
 								<DollarSign className="h-5 w-5 text-foreground" />
 							</div>
 							<div>
@@ -144,7 +129,7 @@ export const ItemDetail: React.FC = () => {
 						</div>
 
 						{/* Specifications */}
-						<div className="border-t border-white/20 pt-6 sm:pt-8">
+						<div className="border-t border-gray-200 pt-6 sm:pt-8">
 							<h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-4 sm:mb-6 flex items-center gap-2">
 								<Package className="h-5 w-5" />
 								{t("items.detail.specifications")}
@@ -153,7 +138,7 @@ export const ItemDetail: React.FC = () => {
 								{item.specifications.map((spec, index) => (
 									<div
 										key={index}
-										className="glass-effect-light rounded-xl p-4 sm:p-6 flex flex-col"
+										className="bg-gray-50 border border-gray-200 rounded-xl p-4 sm:p-6 flex flex-col"
 									>
 										<span className="text-xs sm:text-sm text-muted-foreground mb-2 font-medium uppercase tracking-wide">
 											{spec.label}

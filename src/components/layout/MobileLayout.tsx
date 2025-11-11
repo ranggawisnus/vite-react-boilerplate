@@ -1,9 +1,10 @@
 import { useLocation, useNavigate, Outlet, Link } from "@tanstack/react-router";
-import { ArrowLeft, Globe } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { FunctionComponent } from "react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utilities";
+import { getFlagUrlByCountryCode } from "../../api/countries";
 
 type MobileLayoutProps = {
 	className?: string;
@@ -17,10 +18,11 @@ export const MobileLayout: FunctionComponent<MobileLayoutProps> = ({
 	const { i18n } = useTranslation();
 	const isHomePage = location.pathname === "/";
 
+	// Mapping kode bahasa ke kode negara untuk bendera
 	const languages = [
-		{ code: "en", flag: "🇺🇸" },
-		{ code: "es", flag: "🇪🇸" },
-		{ code: "id", flag: "🇮🇩" },
+		{ code: "en", countryCode: "us" }, // English -> United States
+		{ code: "es", countryCode: "es" }, // Spanish -> Spain
+		{ code: "id", countryCode: "id" }, // Indonesian -> Indonesia
 	] as const;
 
 	const currentLanguage =
@@ -47,16 +49,16 @@ export const MobileLayout: FunctionComponent<MobileLayoutProps> = ({
 	};
 
 	return (
-		<div className="min-h-screen w-full flex flex-col overflow-x-hidden relative z-10">
+		<div className="min-h-screen w-full flex flex-col overflow-x-hidden relative z-10 bg-white">
 			{/* Header */}
-			<header className="sticky top-0 z-20 w-full glass-effect-strong border-b border-white/20">
+			<header className="sticky top-0 z-20 w-full bg-white border-b border-gray-200 shadow-sm">
 				<div className="flex h-14 sm:h-16 items-center justify-between px-4 sm:px-6">
 					{/* Left Side - Logo/Title and Back Button */}
 					<div className="flex items-center gap-3">
 						{!isHomePage && (
 							<Button
 								aria-label="Go back"
-								className="glass-effect-light hover:glass-effect rounded-lg"
+								className="bg-gray-50 hover:bg-gray-100 rounded-lg"
 								size="icon"
 								variant="ghost"
 								onClick={handleBack}
@@ -68,11 +70,8 @@ export const MobileLayout: FunctionComponent<MobileLayoutProps> = ({
 							className="flex items-center gap-2 hover:opacity-80 transition-opacity"
 							to="/"
 						>
-							<div className="glass-effect-light rounded-lg p-1.5">
-								<Globe className="h-5 w-5 text-foreground" />
-							</div>
 							<span className="text-base sm:text-lg font-bold text-foreground">
-								App
+								Example Boilerplate
 							</span>
 						</Link>
 					</div>
@@ -81,12 +80,21 @@ export const MobileLayout: FunctionComponent<MobileLayoutProps> = ({
 					<div className="flex items-center gap-2">
 						<Button
 							aria-label="Change language"
-							className="glass-effect-light hover:glass-effect rounded-lg"
+							className="bg-gray-50 hover:bg-gray-100 rounded-lg p-1.5"
 							size="icon"
 							variant="ghost"
 							onClick={handleLanguageChange}
 						>
-							<span className="text-xl">{currentLanguage.flag}</span>
+							<img
+								alt={`${currentLanguage?.code.toUpperCase()} flag`}
+								className="w-6 h-4 object-cover rounded-sm border border-gray-200"
+								loading="eager"
+								src={getFlagUrlByCountryCode(
+									currentLanguage?.countryCode ?? "us",
+									"png",
+									"w40"
+								)}
+							/>
 						</Button>
 					</div>
 				</div>

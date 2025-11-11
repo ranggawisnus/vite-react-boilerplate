@@ -42,17 +42,12 @@ export const Home = (): FunctionComponent => {
 	];
 
 	return (
-		<div className="w-full flex flex-col min-h-screen relative z-10">
-			{/* Floating Orbs */}
-			<div className="floating-orb floating-orb-1" />
-			<div className="floating-orb floating-orb-2" />
-			<div className="floating-orb floating-orb-3" />
-
+		<div className="w-full flex flex-col min-h-screen relative z-10 bg-white">
 			{/* Main Content */}
 			<div className="flex-1 flex flex-col justify-center items-center px-4 py-12 sm:py-16 relative z-10">
 				<div className="w-full max-w-2xl mx-auto">
 					{/* Hero Section */}
-					<div className="glass-effect rounded-2xl p-8 sm:p-12 mb-8 text-center">
+					<div className="bg-white border border-gray-200 shadow-md rounded-2xl p-8 sm:p-12 mb-8 text-center">
 						<h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
 							{t("home.greeting")}
 						</h1>
@@ -60,11 +55,11 @@ export const Home = (): FunctionComponent => {
 							Welcome to our modern web application
 						</p>
 						<Button
-							className="glass-effect-light hover:glass-effect rounded-xl px-6 py-3 text-base font-semibold transition-all"
+							className="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-xl px-6 py-3 text-base font-semibold transition-all text-white"
 							type="button"
 							onClick={onTranslateButtonClick}
 						>
-							<Languages className="h-5 w-5 mr-2" />
+							<Languages className="h-5 w-5 mr-2 text-zinc-100" />
 							Change Language
 						</Button>
 					</div>
@@ -76,11 +71,11 @@ export const Home = (): FunctionComponent => {
 							return (
 								<Link
 									key={item.to}
-									className="glass-effect rounded-xl p-6 sm:p-8 hover:scale-[1.02] transition-all group cursor-pointer block"
+									className="bg-white border border-gray-200 shadow-md rounded-xl p-6 sm:p-8 hover:scale-[1.02] hover:shadow-lg transition-all group cursor-pointer block"
 									to={item.to}
 								>
 									<div className="flex items-start gap-4">
-										<div className="glass-effect-light rounded-xl p-3 group-hover:scale-110 transition-transform">
+										<div className="bg-gray-50 border border-gray-200 rounded-xl p-3 group-hover:scale-110 transition-transform">
 											<Icon className="h-6 w-6 text-foreground" />
 										</div>
 										<div className="flex-1">

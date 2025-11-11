@@ -169,8 +169,8 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 					<span
 						className={`px-3 py-1 rounded-full text-xs font-medium ${
 							info.getValue()
-								? "glass-effect-light text-foreground"
-								: "glass-effect-light text-muted-foreground"
+								? "bg-gray-50 border border-gray-200 text-foreground"
+								: "bg-gray-50 border border-gray-200 text-muted-foreground"
 						}`}
 					>
 						{info.getValue() ? "Active" : "Inactive"}
@@ -209,17 +209,12 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 	});
 
 	return (
-		<div className="w-full flex flex-col min-h-screen relative z-10">
-			{/* Floating Orbs */}
-			<div className="floating-orb floating-orb-1" />
-			<div className="floating-orb floating-orb-2" />
-			<div className="floating-orb floating-orb-3" />
-
+		<div className="w-full flex flex-col min-h-screen relative z-10 bg-white">
 			<div className="w-full max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
 				{/* Header */}
-				<div className="glass-effect rounded-xl p-6 sm:p-8 mb-6">
+				<div className="bg-white border border-gray-200 shadow-md rounded-xl p-6 sm:p-8 mb-6">
 					<div className="flex items-center gap-4 mb-4">
-						<div className="glass-effect-light rounded-lg p-2.5">
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-2.5">
 							<Table2 className="h-6 w-6 text-foreground" />
 						</div>
 						<div>
@@ -234,12 +229,12 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 				</div>
 
 				{/* Global Filter */}
-				<div className="glass-effect rounded-xl p-4 sm:p-6 mb-6">
+				<div className="bg-white border border-gray-200 shadow-md rounded-xl p-4 sm:p-6 mb-6">
 					<div className="relative">
 						<Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
 						<Input
 							id="global-filter"
-							className="pl-9 h-10 sm:h-11 bg-white/50 backdrop-blur-md border-white/30 rounded-lg focus-visible:ring-2 focus-visible:ring-white/50"
+							className="pl-9 h-10 sm:h-11 bg-white border border-gray-300 rounded-lg focus-visible:ring-2 focus-visible:ring-gray-400"
 							placeholder="Search all columns..."
 							type="text"
 							value={
@@ -255,16 +250,16 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 				</div>
 
 				{/* Table */}
-				<div className="glass-effect rounded-xl overflow-hidden">
+				<div className="bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden">
 					<div className="overflow-x-auto">
-						<table className="min-w-full divide-y divide-white/20">
-							<thead className="glass-effect-light">
+						<table className="min-w-full divide-y divide-gray-200">
+							<thead className="bg-gray-50 border-b border-gray-200">
 								{table.getHeaderGroups().map((headerGroup) => (
 									<tr key={headerGroup.id}>
 										{headerGroup.headers.map((header) => (
 											<th
 												key={header.id}
-												className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider cursor-pointer hover:bg-white/10 transition-colors"
+												className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
 												onClick={header.column.getToggleSortingHandler()}
 											>
 												<div className="flex items-center gap-2">
@@ -284,7 +279,7 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 												{header.column.getCanFilter() && (
 													<div className="mt-2">
 														<Input
-															className="w-full px-2 py-1 text-xs bg-white/30 backdrop-blur-md border-white/30 rounded focus-visible:ring-1 focus-visible:ring-white/50"
+															className="w-full px-2 py-1 text-xs bg-white border border-gray-300 rounded focus-visible:ring-1 focus-visible:ring-gray-400"
 															placeholder={`Filter ${header.column.columnDef.header}...`}
 															type="text"
 															value={
@@ -303,11 +298,11 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 									</tr>
 								))}
 							</thead>
-							<tbody className="divide-y divide-white/20">
+							<tbody className="divide-y divide-gray-200">
 								{table.getRowModel().rows.map((row) => (
 									<tr
 										key={row.id}
-										className="hover:bg-white/5 transition-colors"
+										className="hover:bg-gray-50 transition-colors"
 									>
 										{row.getVisibleCells().map((cell) => (
 											<td
@@ -327,10 +322,10 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 					</div>
 
 					{/* Pagination */}
-					<div className="glass-effect-light px-4 py-3 flex items-center justify-between border-t border-white/20 sm:px-6">
+					<div className="bg-gray-50 border-t border-gray-200 px-4 py-3 flex items-center justify-between sm:px-6">
 						<div className="flex-1 flex justify-between sm:hidden gap-2">
 							<Button
-								className="glass-effect-light hover:glass-effect rounded-lg"
+								className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg"
 								disabled={!table.getCanPreviousPage()}
 								type="button"
 								onClick={() => {
@@ -340,7 +335,7 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 								Previous
 							</Button>
 							<Button
-								className="glass-effect-light hover:glass-effect rounded-lg"
+								className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg"
 								disabled={!table.getCanNextPage()}
 								type="button"
 								onClick={() => {
@@ -380,7 +375,7 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 									className="relative z-0 inline-flex rounded-lg -space-x-px"
 								>
 									<Button
-										className="glass-effect-light hover:glass-effect rounded-l-lg rounded-r-none"
+										className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-l-lg rounded-r-none"
 										disabled={!table.getCanPreviousPage()}
 										type="button"
 										onClick={() => {
@@ -390,7 +385,7 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 										First
 									</Button>
 									<Button
-										className="glass-effect-light hover:glass-effect rounded-none"
+										className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-none"
 										disabled={!table.getCanPreviousPage()}
 										type="button"
 										onClick={() => {
@@ -400,7 +395,7 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 										Previous
 									</Button>
 									<Button
-										className="glass-effect-light hover:glass-effect rounded-none"
+										className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-none"
 										disabled={!table.getCanNextPage()}
 										type="button"
 										onClick={() => {
@@ -410,7 +405,7 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 										Next
 									</Button>
 									<Button
-										className="glass-effect-light hover:glass-effect rounded-r-lg rounded-l-none"
+										className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-r-lg rounded-l-none"
 										disabled={!table.getCanNextPage()}
 										type="button"
 										onClick={() => {
@@ -426,31 +421,31 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 				</div>
 
 				{/* Table State Debug Info */}
-				<div className="mt-6 glass-effect rounded-xl p-6">
+				<div className="mt-6 bg-white border border-gray-200 shadow-md rounded-xl p-6">
 					<h3 className="text-lg sm:text-xl font-semibold text-foreground mb-4">
 						Table State Debug Information
 					</h3>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
-						<div className="glass-effect-light rounded-lg p-4">
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
 							<h4 className="font-medium text-foreground mb-2">Current Page</h4>
 							<p className="text-muted-foreground">
 								Page {table.getState().pagination.pageIndex + 1} of{" "}
 								{table.getPageCount()}
 							</p>
 						</div>
-						<div className="glass-effect-light rounded-lg p-4">
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
 							<h4 className="font-medium text-foreground mb-2">Page Size</h4>
 							<p className="text-muted-foreground">
 								{table.getState().pagination.pageSize} rows per page
 							</p>
 						</div>
-						<div className="glass-effect-light rounded-lg p-4">
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
 							<h4 className="font-medium text-foreground mb-2">Total Rows</h4>
 							<p className="text-muted-foreground">
 								{table.getFilteredRowModel().rows.length} rows
 							</p>
 						</div>
-						<div className="glass-effect-light rounded-lg p-4">
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
 							<h4 className="font-medium text-foreground mb-2">Sorting</h4>
 							<p className="text-muted-foreground">
 								{sorting.length > 0
@@ -460,7 +455,7 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 									: "No sorting applied"}
 							</p>
 						</div>
-						<div className="glass-effect-light rounded-lg p-4">
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
 							<h4 className="font-medium text-foreground mb-2">
 								Active Filters
 							</h4>
@@ -470,7 +465,7 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 									: "No filters applied"}
 							</p>
 						</div>
-						<div className="glass-effect-light rounded-lg p-4">
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
 							<h4 className="font-medium text-foreground mb-2">
 								Can Previous Page
 							</h4>
