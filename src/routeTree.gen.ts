@@ -11,7 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TableShowcaseRouteImport } from './routes/table-showcase'
 import { Route as ListBakFilesRouteImport } from './routes/list-bak-files'
+import { Route as FormExampleRouteImport } from './routes/form-example'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ItemsIndexRouteImport } from './routes/items.index'
+import { Route as ItemsItemIdRouteImport } from './routes/items.$itemId'
 
 const TableShowcaseRoute = TableShowcaseRouteImport.update({
   id: '/table-showcase',
@@ -23,40 +26,86 @@ const ListBakFilesRoute = ListBakFilesRouteImport.update({
   path: '/list-bak-files',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FormExampleRoute = FormExampleRouteImport.update({
+  id: '/form-example',
+  path: '/form-example',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ItemsIndexRoute = ItemsIndexRouteImport.update({
+  id: '/items/',
+  path: '/items/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ItemsItemIdRoute = ItemsItemIdRouteImport.update({
+  id: '/items/$itemId',
+  path: '/items/$itemId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/form-example': typeof FormExampleRoute
   '/list-bak-files': typeof ListBakFilesRoute
   '/table-showcase': typeof TableShowcaseRoute
+  '/items/$itemId': typeof ItemsItemIdRoute
+  '/items': typeof ItemsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/form-example': typeof FormExampleRoute
   '/list-bak-files': typeof ListBakFilesRoute
   '/table-showcase': typeof TableShowcaseRoute
+  '/items/$itemId': typeof ItemsItemIdRoute
+  '/items': typeof ItemsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/form-example': typeof FormExampleRoute
   '/list-bak-files': typeof ListBakFilesRoute
   '/table-showcase': typeof TableShowcaseRoute
+  '/items/$itemId': typeof ItemsItemIdRoute
+  '/items/': typeof ItemsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/list-bak-files' | '/table-showcase'
+  fullPaths:
+    | '/'
+    | '/form-example'
+    | '/list-bak-files'
+    | '/table-showcase'
+    | '/items/$itemId'
+    | '/items'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/list-bak-files' | '/table-showcase'
-  id: '__root__' | '/' | '/list-bak-files' | '/table-showcase'
+  to:
+    | '/'
+    | '/form-example'
+    | '/list-bak-files'
+    | '/table-showcase'
+    | '/items/$itemId'
+    | '/items'
+  id:
+    | '__root__'
+    | '/'
+    | '/form-example'
+    | '/list-bak-files'
+    | '/table-showcase'
+    | '/items/$itemId'
+    | '/items/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FormExampleRoute: typeof FormExampleRoute
   ListBakFilesRoute: typeof ListBakFilesRoute
   TableShowcaseRoute: typeof TableShowcaseRoute
+  ItemsItemIdRoute: typeof ItemsItemIdRoute
+  ItemsIndexRoute: typeof ItemsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,6 +124,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ListBakFilesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/form-example': {
+      id: '/form-example'
+      path: '/form-example'
+      fullPath: '/form-example'
+      preLoaderRoute: typeof FormExampleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -82,13 +138,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/items/': {
+      id: '/items/'
+      path: '/items'
+      fullPath: '/items'
+      preLoaderRoute: typeof ItemsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/items/$itemId': {
+      id: '/items/$itemId'
+      path: '/items/$itemId'
+      fullPath: '/items/$itemId'
+      preLoaderRoute: typeof ItemsItemIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FormExampleRoute: FormExampleRoute,
   ListBakFilesRoute: ListBakFilesRoute,
   TableShowcaseRoute: TableShowcaseRoute,
+  ItemsItemIdRoute: ItemsItemIdRoute,
+  ItemsIndexRoute: ItemsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

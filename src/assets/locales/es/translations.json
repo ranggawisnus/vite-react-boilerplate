@@ -1,5 +1,21 @@
 {
-    "home": {
-        "greeting": "¡Hola, Mundo!"
-    }
+	"home": {
+		"greeting": "¡Hola, Mundo!"
+	},
+	"layout": {
+		"back": "Atrás"
+	},
+	"items": {
+		"list": {
+			"title": "Lista de Artículos",
+			"price": "Rp {{price, number}}",
+			"viewDetails": "Ver Detalles",
+			"noItems": "No se encontraron artículos"
+		},
+		"detail": {
+			"notFound": "Artículo No Encontrado",
+			"itemNotFound": "El artículo que buscas no existe.",
+			"specifications": "Especificaciones"
+		}
+	}
 }

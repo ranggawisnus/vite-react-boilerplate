@@ -1,5 +1,21 @@
 {
-    "home": {
-        "greeting": "Hello, world!"
-    }
+	"home": {
+		"greeting": "Hello, world!"
+	},
+	"layout": {
+		"back": "Back"
+	},
+	"items": {
+		"list": {
+			"title": "Items List",
+			"price": "Rp {{price, number}}",
+			"viewDetails": "View Details",
+			"noItems": "No items found"
+		},
+		"detail": {
+			"notFound": "Item Not Found",
+			"itemNotFound": "The item you are looking for does not exist.",
+			"specifications": "Specifications"
+		}
+	}
 }

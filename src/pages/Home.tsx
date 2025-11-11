@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
+import { Languages, Table2, FileText, FormInput, Package } from "lucide-react";
 import type { FunctionComponent } from "../common/types";
+import { Button } from "../components/ui/button";
 
 export const Home = (): FunctionComponent => {
 	const { t, i18n } = useTranslation();
@@ -12,29 +14,84 @@ export const Home = (): FunctionComponent => {
 		await i18n.changeLanguage(languages[nextIndex]);
 	};
 
+	const menuItems = [
+		{
+			title: "View TanStack Table Showcase",
+			to: "/table-showcase",
+			icon: Table2,
+			description: "Explore table features",
+		},
+		{
+			title: "View BAK Files",
+			to: "/list-bak-files",
+			icon: FileText,
+			description: "Browse backup files",
+		},
+		{
+			title: "View Forms Example",
+			to: "/form-example",
+			icon: FormInput,
+			description: "See form components",
+		},
+		{
+			title: "View Items List",
+			to: "/items",
+			icon: Package,
+			description: "Browse items collection",
+		},
+	];
+
 	return (
-		<div className="bg-blue-300 font-bold w-screen h-screen flex flex-col justify-center items-center">
-			<p className="text-white text-6xl mb-8">{t("home.greeting")}</p>
-			<div className="flex flex-col gap-4 items-center">
-				<button
-					className="hover:cursor-pointer bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-					type="submit"
-					onClick={onTranslateButtonClick}
-				>
-					translate
-				</button>
-				<Link
-					className="bg-green-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-600 transition-colors"
-					to="/table-showcase"
-				>
-					View TanStack Table Showcase
-				</Link>
-				<a
-					className="bg-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
-					href="/list-bak-files"
-				>
-					View BAK Files
-				</a>
+		<div className="w-full flex flex-col min-h-screen relative z-10 bg-white">
+			{/* Main Content */}
+			<div className="flex-1 flex flex-col justify-center items-center px-4 py-12 sm:py-16 relative z-10">
+				<div className="w-full max-w-2xl mx-auto">
+					{/* Hero Section */}
+					<div className="bg-white border border-gray-200 shadow-md rounded-2xl p-8 sm:p-12 mb-8 text-center">
+						<h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
+							{t("home.greeting")}
+						</h1>
+						<p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
+							Welcome to our modern web application
+						</p>
+						<Button
+							className="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-xl px-6 py-3 text-base font-semibold transition-all text-white"
+							type="button"
+							onClick={onTranslateButtonClick}
+						>
+							<Languages className="h-5 w-5 mr-2 text-zinc-100" />
+							Change Language
+						</Button>
+					</div>
+
+					{/* Menu Items Grid */}
+					<div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2">
+						{menuItems.map((item) => {
+							const Icon = item.icon;
+							return (
+								<Link
+									key={item.to}
+									className="bg-white border border-gray-200 shadow-md rounded-xl p-6 sm:p-8 hover:scale-[1.02] hover:shadow-lg transition-all group cursor-pointer block"
+									to={item.to}
+								>
+									<div className="flex items-start gap-4">
+										<div className="bg-gray-50 border border-gray-200 rounded-xl p-3 group-hover:scale-110 transition-transform">
+											<Icon className="h-6 w-6 text-foreground" />
+										</div>
+										<div className="flex-1">
+											<h2 className="text-lg sm:text-xl font-semibold text-foreground mb-2 group-hover:text-foreground transition-colors">
+												{item.title}
+											</h2>
+											<p className="text-sm sm:text-base text-muted-foreground">
+												{item.description}
+											</p>
+										</div>
+									</div>
+								</Link>
+							);
+						})}
+					</div>
+				</div>
 			</div>
 		</div>
 	);

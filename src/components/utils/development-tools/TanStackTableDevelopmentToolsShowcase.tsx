@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { Search, Table2 } from "lucide-react";
 import {
 	createColumnHelper,
 	flexRender,
@@ -13,19 +14,9 @@ import {
 	type PaginationState,
 } from "@tanstack/react-table";
 import { TanStackTableDevelopmentTools } from "./TanStackTableDevelopmentTools";
-
-// Sample data type
-interface Person {
-	id: number;
-	firstName: string;
-	lastName: string;
-	age: number;
-	email: string;
-	department: string;
-	salary: number;
-	isActive: boolean;
-	joinDate: string;
-}
+import type { Person } from "../../../types";
+import { Input } from "../../ui/input";
+import { Button } from "../../ui/button";
 
 // Sample data
 const sampleData: Person[] = [
@@ -176,10 +167,10 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 				header: "Status",
 				cell: (info) => (
 					<span
-						className={`px-2 py-1 rounded-full text-xs ${
+						className={`px-3 py-1 rounded-full text-xs font-medium ${
 							info.getValue()
-								? "bg-green-100 text-green-800"
-								: "bg-red-100 text-red-800"
+								? "bg-gray-50 border border-gray-200 text-foreground"
+								: "bg-gray-50 border border-gray-200 text-muted-foreground"
 						}`}
 					>
 						{info.getValue() ? "Active" : "Inactive"}
@@ -215,251 +206,280 @@ export const TanStackTableDevelopmentToolsShowcase: React.FC = () => {
 		getPaginationRowModel: getPaginationRowModel(),
 		enableColumnFilters: true,
 		enableSorting: true,
-		enablePagination: true,
 	});
 
 	return (
-		<div className="p-6 max-w-7xl mx-auto">
-			<div className="mb-8">
-				<h1 className="text-3xl font-bold text-gray-900 mb-2">
-					TanStack Table Development Tools Showcase
-				</h1>
-				<p className="text-gray-600">
-					This page demonstrates various TanStack Table features with integrated
-					development tools. Open the browser devtools to see the TanStack Table
-					DevTools panel.
-				</p>
-			</div>
-
-			{/* Global Filter */}
-			<div className="mb-6">
-				<div className="flex items-center gap-4">
-					<label
-						htmlFor="global-filter"
-						className="text-sm font-medium text-gray-700"
-					>
-						Global Filter:
-					</label>
-					<input
-						id="global-filter"
-						type="text"
-						placeholder="Search all columns..."
-						className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-						value={
-							(table.getColumn("firstName")?.getFilterValue() as string) ?? ""
-						}
-						onChange={(e) =>
-							table.getColumn("firstName")?.setFilterValue(e.target.value)
-						}
-					/>
-				</div>
-			</div>
-
-			{/* Table */}
-			<div className="bg-white shadow-lg rounded-lg overflow-hidden">
-				<div className="overflow-x-auto">
-					<table className="min-w-full divide-y divide-gray-200">
-						<thead className="bg-gray-50">
-							{table.getHeaderGroups().map((headerGroup) => (
-								<tr key={headerGroup.id}>
-									{headerGroup.headers.map((header) => (
-										<th
-											key={header.id}
-											className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-											onClick={header.column.getToggleSortingHandler()}
-										>
-											<div className="flex items-center gap-2">
-												{flexRender(
-													header.column.columnDef.header,
-													header.getContext()
-												)}
-												{header.column.getCanSort() && (
-													<span className="text-gray-400">
-														{{
-															asc: "↑",
-															desc: "↓",
-														}[header.column.getIsSorted() as string] ?? "↕"}
-													</span>
-												)}
-											</div>
-											{header.column.getCanFilter() && (
-												<div className="mt-2">
-													<input
-														type="text"
-														placeholder={`Filter ${header.column.columnDef.header}...`}
-														className="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
-														value={
-															(header.column.getFilterValue() as string) ?? ""
-														}
-														onChange={(e) =>
-															header.column.setFilterValue(e.target.value)
-														}
-													/>
-												</div>
-											)}
-										</th>
-									))}
-								</tr>
-							))}
-						</thead>
-						<tbody className="bg-white divide-y divide-gray-200">
-							{table.getRowModel().rows.map((row) => (
-								<tr key={row.id} className="hover:bg-gray-50">
-									{row.getVisibleCells().map((cell) => (
-										<td
-											key={cell.id}
-											className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
-										>
-											{flexRender(
-												cell.column.columnDef.cell,
-												cell.getContext()
-											)}
-										</td>
-									))}
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
-
-				{/* Pagination */}
-				<div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-					<div className="flex-1 flex justify-between sm:hidden">
-						<button
-							onClick={() => table.previousPage()}
-							disabled={!table.getCanPreviousPage()}
-							className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-						>
-							Previous
-						</button>
-						<button
-							onClick={() => table.nextPage()}
-							disabled={!table.getCanNextPage()}
-							className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-						>
-							Next
-						</button>
-					</div>
-					<div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+		<div className="w-full flex flex-col min-h-screen relative z-10 bg-white">
+			<div className="w-full max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
+				{/* Header */}
+				<div className="bg-white border border-gray-200 shadow-md rounded-xl p-6 sm:p-8 mb-6">
+					<div className="flex items-center gap-4 mb-4">
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-2.5">
+							<Table2 className="h-6 w-6 text-foreground" />
+						</div>
 						<div>
-							<p className="text-sm text-gray-700">
-								Showing{" "}
-								<span className="font-medium">
-									{table.getState().pagination.pageIndex *
-										table.getState().pagination.pageSize +
-										1}
-								</span>{" "}
-								to{" "}
-								<span className="font-medium">
-									{Math.min(
-										(table.getState().pagination.pageIndex + 1) *
-											table.getState().pagination.pageSize,
-										table.getFilteredRowModel().rows.length
-									)}
-								</span>{" "}
-								of{" "}
-								<span className="font-medium">
-									{table.getFilteredRowModel().rows.length}
-								</span>{" "}
-								results
+							<h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">
+								TanStack Table Showcase
+							</h1>
+							<p className="text-sm sm:text-base text-muted-foreground">
+								Explore table features with integrated development tools
 							</p>
 						</div>
-						<div>
-							<nav
-								className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
-								aria-label="Pagination"
+					</div>
+				</div>
+
+				{/* Global Filter */}
+				<div className="bg-white border border-gray-200 shadow-md rounded-xl p-4 sm:p-6 mb-6">
+					<div className="relative">
+						<Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+						<Input
+							id="global-filter"
+							className="pl-9 h-10 sm:h-11 bg-white border border-gray-300 rounded-lg focus-visible:ring-2 focus-visible:ring-gray-400"
+							placeholder="Search all columns..."
+							type="text"
+							value={
+								(table.getColumn("firstName")?.getFilterValue() as string) ?? ""
+							}
+							onChange={(event_) => {
+								table
+									.getColumn("firstName")
+									?.setFilterValue(event_.target.value);
+							}}
+						/>
+					</div>
+				</div>
+
+				{/* Table */}
+				<div className="bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden">
+					<div className="overflow-x-auto">
+						<table className="min-w-full divide-y divide-gray-200">
+							<thead className="bg-gray-50 border-b border-gray-200">
+								{table.getHeaderGroups().map((headerGroup) => (
+									<tr key={headerGroup.id}>
+										{headerGroup.headers.map((header) => (
+											<th
+												key={header.id}
+												className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+												onClick={header.column.getToggleSortingHandler()}
+											>
+												<div className="flex items-center gap-2">
+													{flexRender(
+														header.column.columnDef.header,
+														header.getContext()
+													)}
+													{header.column.getCanSort() && (
+														<span className="text-muted-foreground">
+															{{
+																asc: "↑",
+																desc: "↓",
+															}[header.column.getIsSorted() as string] ?? "↕"}
+														</span>
+													)}
+												</div>
+												{header.column.getCanFilter() && (
+													<div className="mt-2">
+														<Input
+															className="w-full px-2 py-1 text-xs bg-white border border-gray-300 rounded focus-visible:ring-1 focus-visible:ring-gray-400"
+															placeholder={`Filter ${header.column.columnDef.header}...`}
+															type="text"
+															value={
+																(header.column.getFilterValue() as string) ?? ""
+															}
+															onChange={(event_) => {
+																header.column.setFilterValue(
+																	event_.target.value
+																);
+															}}
+														/>
+													</div>
+												)}
+											</th>
+										))}
+									</tr>
+								))}
+							</thead>
+							<tbody className="divide-y divide-gray-200">
+								{table.getRowModel().rows.map((row) => (
+									<tr
+										key={row.id}
+										className="hover:bg-gray-50 transition-colors"
+									>
+										{row.getVisibleCells().map((cell) => (
+											<td
+												key={cell.id}
+												className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-foreground"
+											>
+												{flexRender(
+													cell.column.columnDef.cell,
+													cell.getContext()
+												)}
+											</td>
+										))}
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+
+					{/* Pagination */}
+					<div className="bg-gray-50 border-t border-gray-200 px-4 py-3 flex items-center justify-between sm:px-6">
+						<div className="flex-1 flex justify-between sm:hidden gap-2">
+							<Button
+								className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg"
+								disabled={!table.getCanPreviousPage()}
+								type="button"
+								onClick={() => {
+									table.previousPage();
+								}}
 							>
-								<button
-									onClick={() => table.setPageIndex(0)}
-									disabled={!table.getCanPreviousPage()}
-									className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+								Previous
+							</Button>
+							<Button
+								className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg"
+								disabled={!table.getCanNextPage()}
+								type="button"
+								onClick={() => {
+									table.nextPage();
+								}}
+							>
+								Next
+							</Button>
+						</div>
+						<div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+							<div>
+								<p className="text-sm text-foreground">
+									Showing{" "}
+									<span className="font-medium">
+										{table.getState().pagination.pageIndex *
+											table.getState().pagination.pageSize +
+											1}
+									</span>{" "}
+									to{" "}
+									<span className="font-medium">
+										{Math.min(
+											(table.getState().pagination.pageIndex + 1) *
+												table.getState().pagination.pageSize,
+											table.getFilteredRowModel().rows.length
+										)}
+									</span>{" "}
+									of{" "}
+									<span className="font-medium">
+										{table.getFilteredRowModel().rows.length}
+									</span>{" "}
+									results
+								</p>
+							</div>
+							<div>
+								<nav
+									aria-label="Pagination"
+									className="relative z-0 inline-flex rounded-lg -space-x-px"
 								>
-									First
-								</button>
-								<button
-									onClick={() => table.previousPage()}
-									disabled={!table.getCanPreviousPage()}
-									className="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-								>
-									Previous
-								</button>
-								<button
-									onClick={() => table.nextPage()}
-									disabled={!table.getCanNextPage()}
-									className="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-								>
-									Next
-								</button>
-								<button
-									onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-									disabled={!table.getCanNextPage()}
-									className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-								>
-									Last
-								</button>
-							</nav>
+									<Button
+										className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-l-lg rounded-r-none"
+										disabled={!table.getCanPreviousPage()}
+										type="button"
+										onClick={() => {
+											table.setPageIndex(0);
+										}}
+									>
+										First
+									</Button>
+									<Button
+										className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-none"
+										disabled={!table.getCanPreviousPage()}
+										type="button"
+										onClick={() => {
+											table.previousPage();
+										}}
+									>
+										Previous
+									</Button>
+									<Button
+										className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-none"
+										disabled={!table.getCanNextPage()}
+										type="button"
+										onClick={() => {
+											table.nextPage();
+										}}
+									>
+										Next
+									</Button>
+									<Button
+										className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-r-lg rounded-l-none"
+										disabled={!table.getCanNextPage()}
+										type="button"
+										onClick={() => {
+											table.setPageIndex(table.getPageCount() - 1);
+										}}
+									>
+										Last
+									</Button>
+								</nav>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			{/* Table State Debug Info */}
-			<div className="mt-8 bg-gray-100 p-4 rounded-lg">
-				<h3 className="text-lg font-semibold mb-4">
-					Table State Debug Information
-				</h3>
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
-					<div>
-						<h4 className="font-medium text-gray-700 mb-2">Current Page</h4>
-						<p className="text-gray-600">
-							Page {table.getState().pagination.pageIndex + 1} of{" "}
-							{table.getPageCount()}
-						</p>
-					</div>
-					<div>
-						<h4 className="font-medium text-gray-700 mb-2">Page Size</h4>
-						<p className="text-gray-600">
-							{table.getState().pagination.pageSize} rows per page
-						</p>
-					</div>
-					<div>
-						<h4 className="font-medium text-gray-700 mb-2">Total Rows</h4>
-						<p className="text-gray-600">
-							{table.getFilteredRowModel().rows.length} rows
-						</p>
-					</div>
-					<div>
-						<h4 className="font-medium text-gray-700 mb-2">Sorting</h4>
-						<p className="text-gray-600">
-							{sorting.length > 0
-								? sorting
-										.map((s) => `${s.id} (${s.desc ? "desc" : "asc"})`)
-										.join(", ")
-								: "No sorting applied"}
-						</p>
-					</div>
-					<div>
-						<h4 className="font-medium text-gray-700 mb-2">Active Filters</h4>
-						<p className="text-gray-600">
-							{columnFilters.length > 0
-								? columnFilters.map((f) => `${f.id}: ${f.value}`).join(", ")
-								: "No filters applied"}
-						</p>
-					</div>
-					<div>
-						<h4 className="font-medium text-gray-700 mb-2">
-							Can Previous Page
-						</h4>
-						<p className="text-gray-600">
-							{table.getCanPreviousPage() ? "Yes" : "No"}
-						</p>
+				{/* Table State Debug Info */}
+				<div className="mt-6 bg-white border border-gray-200 shadow-md rounded-xl p-6">
+					<h3 className="text-lg sm:text-xl font-semibold text-foreground mb-4">
+						Table State Debug Information
+					</h3>
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+							<h4 className="font-medium text-foreground mb-2">Current Page</h4>
+							<p className="text-muted-foreground">
+								Page {table.getState().pagination.pageIndex + 1} of{" "}
+								{table.getPageCount()}
+							</p>
+						</div>
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+							<h4 className="font-medium text-foreground mb-2">Page Size</h4>
+							<p className="text-muted-foreground">
+								{table.getState().pagination.pageSize} rows per page
+							</p>
+						</div>
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+							<h4 className="font-medium text-foreground mb-2">Total Rows</h4>
+							<p className="text-muted-foreground">
+								{table.getFilteredRowModel().rows.length} rows
+							</p>
+						</div>
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+							<h4 className="font-medium text-foreground mb-2">Sorting</h4>
+							<p className="text-muted-foreground">
+								{sorting.length > 0
+									? sorting
+											.map((s) => `${s.id} (${s.desc ? "desc" : "asc"})`)
+											.join(", ")
+									: "No sorting applied"}
+							</p>
+						</div>
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+							<h4 className="font-medium text-foreground mb-2">
+								Active Filters
+							</h4>
+							<p className="text-muted-foreground">
+								{columnFilters.length > 0
+									? columnFilters.map((f) => `${f.id}: ${f.value}`).join(", ")
+									: "No filters applied"}
+							</p>
+						</div>
+						<div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+							<h4 className="font-medium text-foreground mb-2">
+								Can Previous Page
+							</h4>
+							<p className="text-muted-foreground">
+								{table.getCanPreviousPage() ? "Yes" : "No"}
+							</p>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			{/* TanStack Table DevTools */}
-			<div className="mt-8">
-				<TanStackTableDevelopmentTools table={table} />
+				{/* TanStack Table DevTools */}
+				<div className="mt-6">
+					<TanStackTableDevelopmentTools table={table} />
+				</div>
 			</div>
 		</div>
 	);
